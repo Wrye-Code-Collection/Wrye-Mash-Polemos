@@ -124,7 +124,7 @@ class Cleaner(tes3cmdgui.cleaner, OutputParserMixin):
         self.StartNext()
 
     def StartNext(self):
-        """ 
+        """
         Starts processing the next file on the list of files. If there are no
         files to process this calls the callback function as defined in the
         call to Start()
@@ -168,7 +168,7 @@ class Cleaner(tes3cmdgui.cleaner, OutputParserMixin):
         Dispatches to the correct function depending on event type"""
         if event.doneType == DONE_HEADER: self.DoneHeader()
         elif event.doneType == DONE_CLEAN: self.DoneClean()
-            
+
     def DoneClean(self):
         """When the file has done cleaning, we then sync the headers"""
         out = self.cleaner.out

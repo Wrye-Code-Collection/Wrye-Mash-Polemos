@@ -551,7 +551,7 @@ class ListEditorDialog(wx.Dialog):
         #--Data
         itemDex = selections[0]
         item = self.items[itemDex]
-        if not self.data.remove(item): return 
+        if not self.data.remove(item): return
         #--GUI
         del self.items[itemDex]
         self.list.Delete(itemDex)
@@ -1213,7 +1213,7 @@ class MasterList(gui.List):
             if not self.load(mmName): return False
         #--Select master
         for masterInfo in masterInfos: masterInfo.isLoaded = True
-        if masterName not in self.newMasters: 
+        if masterName not in self.newMasters:
             self.newMasters.append(masterName)
             if masterName not in self.allMasters: self.allMasters.append(masterName)
             self.ReList()
@@ -1632,7 +1632,7 @@ class ModList(gui.List, gui.ListDragDropMixin):  # Polemos: OpenMW/TES3mp suppor
     def OnAPress(self, event):
         if event.ControlDown(): self.SelectAll()
         else: self.OnGenKeys(u'A')
-    
+
     def OnUpPress(self, event):
         event.Skip()
         self.moveSelected(event, (-1))
@@ -2694,7 +2694,7 @@ class SaveDetails(wx.Window): # Polemos: fixed old bugs, refactored, optimized, 
     def SetFile(self,fileName='SAME'):
         """Set file to be viewed."""
         #--Reset?
-        if fileName == 'SAME': 
+        if fileName == 'SAME':
             if not self.saveInfo or self.saveInfo.name not in mosh.saveInfos:
                 fileName = None
             else: fileName = self.saveInfo.name
@@ -3208,7 +3208,7 @@ class InstallersPanel(SashTankPanel): # Polemos: Refactored, changes.
                 files.sort(key=lambda x: sortKeys[x])
                 buff = ''
                 if header: buff = header+'\n'
-                buff += '\n'.join(files) 
+                buff += '\n'.join(files)
                 return buff
             elif header: return header+'\n'
             else: return ''
@@ -4745,7 +4745,7 @@ class DocBrowser(wx.Frame):  # Polemos: Refactored
         (workDir,fileName) = os.path.split(oldPath)
         #--Dialog
         dialog = wx.FileDialog(self,_(u"Rename file to:"), workDir,fileName, '*.*', wx.FD_SAVE|wx.FD_OVERWRITE_PROMPT)
-        if dialog.ShowModal() != wx.ID_OK: 
+        if dialog.ShowModal() != wx.ID_OK:
             dialog.Destroy()
             return None
         path = dialog.GetPath()
@@ -4830,7 +4830,7 @@ class DocBrowser(wx.Frame):  # Polemos: Refactored
             self.plainText.SetEditable(editing)
             self.docIsWtxt = self.GetIsWtxt(docPath)
             htmlPath = self.docIsWtxt and (os.path.splitext(docPath)[0]+'.html')
-            if htmlPath and (not os.path.exists(htmlPath) or 
+            if htmlPath and (not os.path.exists(htmlPath) or
                 (os.path.getmtime(docPath) > os.path.getmtime(htmlPath))):
                 import wtxt
                 docsDir = os.path.join(mosh.modInfos.dir,'Docs')
@@ -5167,12 +5167,12 @@ class MashApp(wx.App):  # Polemos: Added settings, file check, updates check, ml
 
 # Links -----------------------------------------------------------------------
 #class Link:
-#    """Abstract class for a menuitem or button. These objects are added to a 
-#    list, and the menuitems are then built on demand through the AppendToMenu 
+#    """Abstract class for a menuitem or button. These objects are added to a
+#    list, and the menuitems are then built on demand through the AppendToMenu
 #    method. Execution of the command is carried out by the Do method.
 #
-#    Design allows control items to be created by 1) defining link classes, and 
-#    2) creating link objects all at once in an initLinks method. This design 
+#    Design allows control items to be created by 1) defining link classes, and
+#    2) creating link objects all at once in an initLinks method. This design
 #    keeps link coding from being buried in the interface that it's attached to.
 #    """
 #    def __init__(self):
@@ -5493,7 +5493,7 @@ class Files_Unhide(Link): # Polemos: made compatible with Menu bar.
         #--File dialog
         if not os.path.exists(srcDir): os.makedirs(srcDir)
         dialog = wx.FileDialog(self.window,u'Unhide files:',srcDir, u'', wildcard, wx.FD_OPEN|wx.FD_MULTIPLE)
-        if dialog.ShowModal() != wx.ID_OK: 
+        if dialog.ShowModal() != wx.ID_OK:
             dialog.Destroy()
             return
         srcPaths = dialog.GetPaths()
@@ -5529,7 +5529,7 @@ class File_Delete(Link):
         message += '\n* ' + '\n* '.join(sorted(self.data))
         dialog = wx.MessageDialog(self.window,message,_(u'Delete Files'),
             style=wx.YES_NO|wx.ICON_EXCLAMATION)
-        if dialog.ShowModal() != wx.ID_YES: 
+        if dialog.ShowModal() != wx.ID_YES:
             dialog.Destroy()
             return
         dialog.Destroy()
@@ -5595,7 +5595,7 @@ class File_Duplicate(Link):
         (destDir,destName,wildcard) = (fileInfo.dir, root+' Copy'+ext,'*'+ext)
         if not os.path.exists(destDir): os.makedirs(destDir)
         dialog = wx.FileDialog(self.window,_(u'Duplicate as:'),destDir, destName,wildcard,wx.FD_SAVE|wx.FD_OVERWRITE_PROMPT)
-        if dialog.ShowModal() != wx.ID_OK: 
+        if dialog.ShowModal() != wx.ID_OK:
             dialog.Destroy()
             return
         (destDir,destName) = os.path.split(dialog.GetPath())
@@ -5760,7 +5760,7 @@ class File_Snapshot(Link):
         (destDir,destName,wildcard) = fileInfo.getNextSnapshot()
         if not os.path.exists(destDir): os.makedirs(destDir)
         dialog = wx.FileDialog(self.window,_(u'Save snapshot as:'),destDir, destName,wildcard,wx.FD_SAVE|wx.FD_OVERWRITE_PROMPT)
-        if dialog.ShowModal() != wx.ID_OK: 
+        if dialog.ShowModal() != wx.ID_OK:
             dialog.Destroy()
             return
         (destDir,destName) = os.path.split(dialog.GetPath())
@@ -5801,7 +5801,7 @@ class File_RevertToSnapshot(Link):
         if not os.path.exists(srcDir): os.makedirs(srcDir)
         try: dialog = wx.FileDialog(self.window, _(u'Revert %s to snapshot:') % (fileName,), srcDir, '', wildcard, wx.FD_OPEN)
         except: dialog = wx.FileDialog(self.window, _(u'Revert to snapshot?'), srcDir, '', wildcard, wx.FD_OPEN)
-        if dialog.ShowModal() != wx.ID_OK: 
+        if dialog.ShowModal() != wx.ID_OK:
             dialog.Destroy()
             return
         snapPath = dialog.GetPath()
@@ -5814,7 +5814,7 @@ class File_RevertToSnapshot(Link):
         except:
             message = (_(u"Revert to snapshot dated %s?") % (formatDate(mosh.getmtime(snapPath))))
             dialog = wx.MessageDialog(self.window, message, _(u'Revert to Snapshot'), style=wx.YES_NO | wx.ICON_EXCLAMATION)
-        if dialog.ShowModal() != wx.ID_YES: 
+        if dialog.ShowModal() != wx.ID_YES:
             dialog.Destroy()
             return
         wx.BeginBusyCursor()
@@ -5896,7 +5896,7 @@ class File_RevertToBackup:
         except:
             message = _(u"Revert file to backup dated %s?") % (uniformatDate(mosh.getmtime(self.backup)))
             dialog = wx.MessageDialog(self.window, message, _(u'Revert to Backup'), style=wx.YES_NO|wx.ICON_EXCLAMATION)
-        if dialog.ShowModal() == wx.ID_YES: 
+        if dialog.ShowModal() == wx.ID_YES:
             wx.BeginBusyCursor()
             dest = os.path.join(fileInfo.dir,fileName)
             shutil.copy(backup,dest)
@@ -5971,12 +5971,12 @@ class File_Remove_RefsData(ListEditorData):
         workDir = conf.settings.get('mosh.workDir',conf.settings['mwDir'])
         dialog = wx.FileDialog(self.parent,_(u'Select Ref Remover file or files:'),
             workDir,'', '*.*', wx.FD_OPEN|wx.FD_MULTIPLE)
-        if dialog.ShowModal() != wx.ID_OK: 
+        if dialog.ShowModal() != wx.ID_OK:
             dialog.Destroy()
             return None
         paths = dialog.GetPaths()
         dialog.Destroy()
-        if len(paths) == 0: 
+        if len(paths) == 0:
             return None
         elif len(paths) == 1:
             conf.settings.setChanged('mash.refRemovers.data')
@@ -6015,7 +6015,7 @@ class File_Remove_Refs:
     """Add ref remover links."""
     def __init__(self):
         """Initialize."""
-        self.safeCells = conf.settings['mash.refRemovers.safeCells'] 
+        self.safeCells = conf.settings['mash.refRemovers.safeCells']
         self.removers = conf.settings['mash.refRemovers.data']
 
     def GetItems(self):
@@ -6123,7 +6123,7 @@ class File_Replace_RefsData(ListEditorData):
         workDir = conf.settings.get('mosh.workDir',conf.settings['mwDir'])
         dialog = wx.FileDialog(self.parent,_(u'Select Ref Replacer list file:'),
             workDir,'', '*.*', wx.FD_OPEN)
-        if dialog.ShowModal() != wx.ID_OK: 
+        if dialog.ShowModal() != wx.ID_OK:
             dialog.Destroy()
             return None
         path = dialog.GetPath()
@@ -6303,7 +6303,7 @@ class File_RepairRefs(Link):
 #------------------------------------------------------------------------------
 
 class File_SortRecords(Link):
-    """Sorts the records in the file. 
+    """Sorts the records in the file.
     This is just to make records easier to find in TESCS Details view."""
 
     def AppendToMenu(self,menu,window,data):
@@ -6909,7 +6909,7 @@ class Installer_Duplicate(InstallerLink):
         if not result: return
         #--Error checking
         newName = GPath(result).tail
-        if not newName.s: 
+        if not newName.s:
             balt.showWarning(self.gTank,_(u"%s is not a valid name.") % result)
             return
         if newName in self.data:
@@ -7195,7 +7195,7 @@ class InstallerArchive_Unpack(InstallerLink):
         if not result: return
         #--Error checking
         project = GPath(result).tail
-        if not project.s or project.cext in ('.rar','.zip','.7z'): 
+        if not project.s or project.cext in ('.rar','.zip','.7z'):
             balt.ShowWarning(self.gTank,_(u"%s is not a valid project name.") % result)
             return
         if self.data.dir.join(project).isfile():
@@ -8150,10 +8150,10 @@ class Mods_IniTweaks(Link): # Polemos: made compatible with toolbar menu.
         if not os.path.exists(mitDir):
             mitDir = conf.settings['mwDir']
         dialog = wx.FileDialog(self.window,_(u'INI Tweaks'),mitDir,'', '*.mit', wx.FD_OPEN )
-        if dialog.ShowModal() != wx.ID_OK: 
+        if dialog.ShowModal() != wx.ID_OK:
             dialog.Destroy()
             return
-        mitPath = dialog.GetPath() 
+        mitPath = dialog.GetPath()
         dialog.Destroy()
         mosh.mwIniFile.applyMit(mitPath)
         gui.dialog.InfoMessage(self.window, _(u'%s applied.') % (os.path.split(mitPath)[1],), _(u'INI Tweaks'))
@@ -8162,7 +8162,7 @@ class Mods_IniTweaks(Link): # Polemos: made compatible with toolbar menu.
 
 class Mods_Tes3cmd_Fixit(): # Polemos: made compatible with toolbar menu, more.
     """TES3cmd fixit."""
-    
+
     def AppendToMenu(self, menu, window, data):
         self.window = window
         menuItem = menu.Append(wx.ID_ANY, _(u'Fixit (all active)'))
@@ -8423,7 +8423,7 @@ class Mod_Labels:
         """Append label list to menu."""
         self.window = window
         self.data = data
-        menu.Append(self.idList.EDIT,self.editMenu) 
+        menu.Append(self.idList.EDIT,self.editMenu)
         menu.AppendSeparator()
         menu.Append(self.idList.NONE,_(u'None'))
         ids = iter(self.idList)
@@ -8537,7 +8537,7 @@ class Mod_Export_Dialogue(Link):
         textDir = conf.settings.get('mosh.workDir',conf.settings['mwDir'])
         #--File dialog
         dialog = wx.FileDialog(self.window,_(u'Export dialogs to:'),textDir, textName, '*.*', wx.FD_SAVE|wx.FD_OVERWRITE_PROMPT)
-        if dialog.ShowModal() != wx.ID_OK: 
+        if dialog.ShowModal() != wx.ID_OK:
             dialog.Destroy()
             return
         textPath = dialog.GetPath()
@@ -8568,7 +8568,7 @@ class Mod_Export_Scripts(Link):
         textDir = conf.settings.get('mosh.workDir',conf.settings['mwDir'])
         #--File dialog
         dialog = wx.FileDialog(self.window,_(u'Export scripts to:'),textDir, textName, '*.*', wx.FD_SAVE|wx.FD_OVERWRITE_PROMPT)
-        if dialog.ShowModal() != wx.ID_OK: 
+        if dialog.ShowModal() != wx.ID_OK:
             dialog.Destroy()
             return
         textPath = dialog.GetPath()
@@ -8602,7 +8602,7 @@ class Mod_Import_Dialogue(Link):
             textDir = conf.settings.get('mosh.workDir',conf.settings['mwDir'])
         #--File dialog
         dialog = wx.FileDialog(self.window,_(u'Import dialogs from:'),textDir, textName, '*.*', wx.FD_OPEN )
-        if dialog.ShowModal() != wx.ID_OK: 
+        if dialog.ShowModal() != wx.ID_OK:
             dialog.Destroy()
             return
         textPath = dialog.GetPath()
@@ -8761,7 +8761,7 @@ class Mod_Import_Scripts(Link):
             textDir = conf.settings.get('mosh.workDir',conf.settings['mwDir'])
         #--File dialog
         dialog = wx.FileDialog(self.window,_(u'Import scripts from:'),textDir, textName, '*.*', wx.FD_OPEN)
-        if dialog.ShowModal() != wx.ID_OK: 
+        if dialog.ShowModal() != wx.ID_OK:
             dialog.Destroy()
             return
         textPath = dialog.GetPath()
@@ -8994,7 +8994,7 @@ class Mod_RenumberRefs(Link):
             if not (0 < first <= 100000):
                 gui.dialog.ErrorMessage(self.window,_(u"Object index must be an integer in range 1:100,000."))
                 return
-            if first == curFirst: 
+            if first == curFirst:
                 gui.dialog.ErrorMessage(self.window,_(u"New object index is same as old object index!"))
                 return
             #--Renumber objects
@@ -9068,7 +9068,7 @@ class Mod_UpdatersData(ListEditorData):
         wildcard = _(u'Morrowind Mod Files')+' (*.esp;*.esm)|*.esp;*.esm'
         #--File dialog
         dialog = wx.FileDialog(self.parent,_(u'Select previous version:'),modDir, '', wildcard, wx.FD_OPEN)
-        if dialog.ShowModal() != wx.ID_OK: 
+        if dialog.ShowModal() != wx.ID_OK:
             dialog.Destroy()
             return None
         fromPath = dialog.GetPath()
@@ -9808,7 +9808,7 @@ class Master_ChangeTo(Link):
         #--File Dialog
         wildcard = _(u'Morrowind Mod Files')+' (*.esp;*.esm)|*.esp;*.esm'
         dialog = wx.FileDialog(self.window,_(u'Change master name to:'), mosh.modInfos.dir, masterName, wildcard, wx.FD_OPEN)
-        if dialog.ShowModal() != wx.ID_OK: 
+        if dialog.ShowModal() != wx.ID_OK:
             dialog.Destroy()
             return
         (newDir,newName) = os.path.split(dialog.GetPath())
@@ -9853,7 +9853,7 @@ class Config_ScreenShots(Link): # Polemos: changed "Next Shot.." to a better nam
             LString('Screen Shot Enable'): '1',
             }}
         screensDir = GPath(newBase).head
-        if screensDir: 
+        if screensDir:
             if not screensDir.isabs(): screensDir = mosh.dirs['app'].join(screensDir)
             screensDir.makedirs()
         ini.saveSettings(settings)
@@ -9921,7 +9921,7 @@ class Screen_Rename(Link):
         screensDir = mosh.screensData.dir
         for oldName in map(GPath,self.data):
             newName = GPath(root)+numStr+oldName.ext
-            if newName != oldName: 
+            if newName != oldName:
                 oldPath = screensDir.join(oldName)
                 newPath = screensDir.join(newName)
                 if not newPath.exists(): oldPath.moveTo(newPath)
@@ -10021,7 +10021,7 @@ class AutoQuit_Button(Link):
         self.gButton = None
 
     def SetState(self,state=None):
-        """Sets state related info. If newState != none, sets to new state first. 
+        """Sets state related info. If newState != none, sets to new state first.
         For convenience, returns state when done."""
         if state is None: #--Default
             state = conf.settings.get('mash.autoQuit.on',False)

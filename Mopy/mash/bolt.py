@@ -31,7 +31,7 @@
 #  along with Wrye Bolt; if not, write to the Free Software Foundation,
 #  Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
-#  Wrye Bolt copyright (C) 2005, 2006, 2007, 2008, 2009 Wrye 
+#  Wrye Bolt copyright (C) 2005, 2006, 2007, 2008, 2009 Wrye
 #
 # =============================================================================
 
@@ -1280,10 +1280,10 @@ class MultiThreadGauge:  # Polemos
 #------------------------------------------------------------------------------
 
 class MainFunctions:
-    """Encapsulates a set of functions and/or object instances so that they can 
+    """Encapsulates a set of functions and/or object instances so that they can
     be called from the command line with normal command line syntax.
 
-    Functions are called with their arguments. Object instances are called 
+    Functions are called with their arguments. Object instances are called
     with their method and method arguments. E.g.:
     * bish bar arg1 arg2 arg3
     * bish foo.bar arg1 arg2 arg3"""
@@ -1293,8 +1293,8 @@ class MainFunctions:
         self.funcs = {}
 
     def add(self,func,key=None):
-        """Add a callable object. 
-        func - A function or class instance. 
+        """Add a callable object.
+        func - A function or class instance.
         key - Command line invocation for object (defaults to name of func).
         """
         key = key or func.__name__
@@ -1357,16 +1357,16 @@ class PickleDict:
         return self.path.exists() or self.backup.exists()
 
     def load(self):
-        """Loads vdata and data from file or backup file. 
-        
-        If file does not exist, or is corrupt, then reads from backup file. If 
-        backup file also does not exist or is corrupt, then no data is read. If 
+        """Loads vdata and data from file or backup file.
+
+        If file does not exist, or is corrupt, then reads from backup file. If
+        backup file also does not exist or is corrupt, then no data is read. If
         no data is read, then self.data is cleared.
 
-        If file exists and has a vdata header, then that will be recorded in 
+        If file exists and has a vdata header, then that will be recorded in
         self.vdata. Otherwise, self.vdata will be empty.
-        
-        Returns: 
+
+        Returns:
           0: No data read (files don't exist and/or are corrupt)
           1: Data read from file
           2: Data read from backup file
@@ -1403,15 +1403,15 @@ class PickleDict:
 
 #------------------------------------------------------------------------------
 class Settings(DataDict):
-    """Settings/configuration dictionary with persistent storage. 
-    
-    Default setting for configurations are either set in bulk (by the 
-    loadDefaults function) or are set as needed in the code (e.g., various 
+    """Settings/configuration dictionary with persistent storage.
+
+    Default setting for configurations are either set in bulk (by the
+    loadDefaults function) or are set as needed in the code (e.g., various
     auto-continue settings for mash. Only settings that have been changed from
     the default values are saved in persistent storage.
 
-    Directly setting a value in the dictionary will mark it as changed (and thus 
-    to be archived). However, an indirect change (e.g., to a value that is a 
+    Directly setting a value in the dictionary will mark it as changed (and thus
+    to be archived). However, an indirect change (e.g., to a value that is a
     list) must be manually marked as changed by using the setChanged method."""
 
     def __init__(self,dictFile):
@@ -1558,14 +1558,14 @@ class TableColumn:
 
 
 class Table(DataDict):
-    """Simple data table of rows and columns, saved in a pickle file. It is 
-    currently used by modInfos to represent properties associated with modfiles, 
-    where each modfile is a row, and each property (e.g. modified date or 
+    """Simple data table of rows and columns, saved in a pickle file. It is
+    currently used by modInfos to represent properties associated with modfiles,
+    where each modfile is a row, and each property (e.g. modified date or
     'mtime') is a column.
-    
-    The "table" is actually a dictionary of dictionaries. E.g. 
+
+    The "table" is actually a dictionary of dictionaries. E.g.
         propValue = table['fileName']['propName']
-    Rows are the first index ('fileName') and columns are the second index 
+    Rows are the first index ('fileName') and columns are the second index
     ('propName')."""
 
     def __init__(self,dictFile):
@@ -1694,7 +1694,7 @@ class TankData:
         return self.tankParams.setdefault(self.tankKey+'.'+key,value)
 
     def updateParam(self,key,default=None):
-        """Get a param, but also mark it as changed. 
+        """Get a param, but also mark it as changed.
         Used for deep params like lists and dictionaries."""
         return self.tankParams.getChanged(self.tankKey+'.'+key,default)
 
@@ -1865,12 +1865,12 @@ def winNewLines(inString):
 # Log/Progress ----------------------------------------------------------------
 
 class Log:
-    """Log Callable. This is the abstract/null version. Useful version should 
+    """Log Callable. This is the abstract/null version. Useful version should
     override write functions.
-    
-    Log is divided into sections with headers. Header text is assigned (through 
-    setHeader), but isn't written until a message is written under it. I.e., 
-    if no message are written under a given header, then the header itself is 
+
+    Log is divided into sections with headers. Header text is assigned (through
+    setHeader), but isn't written until a message is written under it. I.e.,
+    if no message are written under a given header, then the header itself is
     never written."""
 
     def __init__(self):
@@ -1998,8 +1998,8 @@ class ProgressFile(Progress):
 
 
 class WryeText:
-    """This class provides a function for converting wtxt text files to html 
-    files. 
+    """This class provides a function for converting wtxt text files to html
+    files.
 
     Headings:
     = XXXX >> H1 "XXX"
@@ -2009,7 +2009,7 @@ class WryeText:
     Notes:
     * These must start at first character of line.
     * The XXX text is compressed to form an anchor. E.g == Foo Bar gets anchored as" FooBar".
-    * If the line has trailing ='s, they are discarded. This is useful for making 
+    * If the line has trailing ='s, they are discarded. This is useful for making
       text version of level 1 and 2 headings more readable.
 
     Bullet Lists:
@@ -2020,7 +2020,7 @@ class WryeText:
     * These must start at first character of line.
     * Recognized bullet characters are: - ! ? . + * o The dot (.) produces an invisible
       bullet, and the * produces a bullet character.
-      
+
     Styles:
       __Text__
       ~~Italic~~
@@ -2033,7 +2033,7 @@ class WryeText:
      [[file|text]] produces <a href=file>text</a>
 
     Contents
-    {{CONTENTS=NN}} Where NN is the desired depth of contents (1 for single level, 
+    {{CONTENTS=NN}} Where NN is the desired depth of contents (1 for single level,
     2 for two levels, etc.).
     """
 
